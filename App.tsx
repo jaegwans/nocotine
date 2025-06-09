@@ -1,11 +1,11 @@
-import RootNavigator from "@/navigation/RootNavigator";
+import RootStackNavigator from "@/navigation/RootStackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <RootStackNavigator />
     </NavigationContainer>
   );
 }

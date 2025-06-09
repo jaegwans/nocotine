@@ -2,12 +2,12 @@ import colors from "@/constants/colors";
 import ContentsScreen from "@/screens/Contents/ContentsScreen";
 import HomeScreen from "@/screens/Home/HomeScreen";
 import MapScreen from "@/screens/Map/MapScreen";
-import SettingScreen from "@/screens/Setting/SettingScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import SettingNavigator from "./SettingNavigator";
 
-function RootNavigator() {
+function MainBottomTabNavigator() {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
@@ -49,9 +49,15 @@ function RootNavigator() {
           headerTitle: "금연 정보",
         }}
       />
-      <Tab.Screen name="Setting" component={SettingScreen} />
+      <Tab.Screen
+        name="Setting"
+        component={SettingNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }
 
-export default RootNavigator;
+export default MainBottomTabNavigator;
