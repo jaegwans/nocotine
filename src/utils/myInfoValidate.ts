@@ -3,11 +3,13 @@ export const myInfoValidate = ({
   smokeStartDate,
   quitDate,
   cigaretteCount,
+  averagePerDay,
 }: {
   smokePrice: string;
   smokeStartDate: Date | null;
   quitDate: Date | null;
   cigaretteCount: string;
+  averagePerDay: string;
 }): {
   errorMessage: string | null;
   errorFields: { [key: string]: boolean };
@@ -19,6 +21,7 @@ export const myInfoValidate = ({
     quitDate: false,
     smokePrice: false,
     cigaretteCount: false,
+    averagePerDay: false,
   };
   let errorMessage: string | null = null;
 
@@ -54,6 +57,10 @@ export const myInfoValidate = ({
   if (!/^\d+$/.test(cigaretteCount)) {
     errorFields.cigaretteCount = true;
     if (!errorMessage) errorMessage = "한 갑당 개비 수는 자연수로 입력하세요.";
+  }
+  if (!/^\d+$/.test(averagePerDay)) {
+    errorFields.averagePerDay = true;
+    if (!errorMessage) errorMessage = "하루 평균 흡연량은 자연수로 입력하세요.";
   }
 
   return { errorMessage, errorFields };

@@ -32,6 +32,7 @@ const MyInfo = () => {
     quitTime: null as Date | null,
     smokePrice: "",
     cigaretteCount: "",
+    averagePerDay: "", // 하루 평균 흡연량 추가
   });
 
   const handleFormChange = <K extends keyof typeof form>(
@@ -67,6 +68,7 @@ const MyInfo = () => {
       smokeStartDate: finalSmokeStart,
       quitDate: finalQuit,
       cigaretteCount: form.cigaretteCount,
+      averagePerDay: form.averagePerDay,
     });
     setErrorFields(errorFields);
     if (errorMessage) {
@@ -167,6 +169,20 @@ const MyInfo = () => {
           placeholder="예: 20"
           value={form.cigaretteCount}
           setValue={(v) => handleFormChange("cigaretteCount", v)}
+        />
+        <Input
+          label={
+            <>
+              하루 평균 흡연량
+              {errorFields.averagePerDay && (
+                <Text style={{ color: colors.red }}> *</Text>
+              )}
+            </>
+          }
+          keyboardType="numeric"
+          placeholder="예: 10"
+          value={form.averagePerDay}
+          setValue={(v) => handleFormChange("averagePerDay", v)}
         />
         <DateTimePickerModal
           isVisible={activePicker === "smokeStartDate"}
