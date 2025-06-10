@@ -7,6 +7,10 @@ const colors = {
   greenDark: "#819A91",
   white: "#FFFFFF",
   gray: "#cccccc",
+  grayLightest: "#f9f9f9",
+  label: "#333",
+  border: "#ddd",
+  red: "#FF0000",
 };
 
 export default colors;

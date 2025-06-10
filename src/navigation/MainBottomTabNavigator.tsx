@@ -21,7 +21,7 @@ function MainBottomTabNavigator() {
             iconName = "map";
           } else if (route.name === "Contents") {
             iconName = "play-circle";
-          } else if (route.name === "Setting") {
+          } else if (route.name === "SettingNavigator") {
             iconName = "settings";
           } else {
             iconName = "ellipse";
@@ -50,10 +50,11 @@ function MainBottomTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Setting"
+        name="SettingNavigator"
         component={SettingNavigator}
         options={{
           headerShown: false,
+          tabBarLabel: "setting",
         }}
       />
     </Tab.Navigator>
