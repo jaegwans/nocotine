@@ -1,6 +1,14 @@
-export const combineDateTime = (date: Date | null, time: Date | null) => {
+export function combineDateTime(
+  date: Date | null,
+  time: Date | null
+): Date | null {
   if (!date || !time) return null;
-  const result = new Date(date);
-  result.setHours(time.getHours(), time.getMinutes(), 0, 0);
-  return result;
-};
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    time.getHours(),
+    time.getMinutes(),
+    time.getSeconds()
+  );
+}

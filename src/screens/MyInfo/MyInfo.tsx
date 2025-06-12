@@ -1,10 +1,11 @@
 import Input from "@/components/Input/Input";
 import colors from "@/constants/colors";
+import { useMyInfoStore } from "@/store/useMyInfoStore";
 import { combineDateTime } from "@/utils/combineDateTime";
 import { myInfoValidate } from "@/utils/myInfoValidate";
 import { useNavigation } from "@react-navigation/native";
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   Alert,
   Keyboard,
@@ -13,7 +14,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModalWrapper from "./components/DataTimePickerModalWrapper";
 import { styles } from "./MyInfo.styles";
 
 type activePickerType =
@@ -32,8 +33,29 @@ const MyInfo = () => {
     quitTime: null as Date | null,
     smokePrice: "",
     cigaretteCount: "",
-    averagePerDay: "", // 하루 평균 흡연량 추가
+    averagePerDay: "",
   });
+  const myInfoStore = useMyInfoStore((state) => state);
+  const setMyInfo = useMyInfoStore((state) => state.setMyInfo);
+  useLayoutEffect(() => {
+    if (
+      myInfoStore.smokeStartDateAndTime ||
+      myInfoStore.quitDateAndTime ||
+      myInfoStore.smokePrice ||
+      myInfoStore.cigaretteCount ||
+      myInfoStore.averagePerDay
+    ) {
+      setForm({
+        smokeStartDate: myInfoStore.smokeStartDateAndTime,
+        smokeStartTime: myInfoStore.smokeStartDateAndTime,
+        quitDate: myInfoStore.quitDateAndTime,
+        quitTime: myInfoStore.quitDateAndTime,
+        smokePrice: myInfoStore.smokePrice,
+        cigaretteCount: myInfoStore.cigaretteCount,
+        averagePerDay: myInfoStore.averagePerDay,
+      });
+    }
+  }, []);
 
   const handleFormChange = <K extends keyof typeof form>(
     key: K,
@@ -57,6 +79,10 @@ const MyInfo = () => {
     setActivePicker(null);
   };
 
+  const handleOpenPicker = (picker: activePickerType) => {
+    setActivePicker(picker);
+  };
+
   const validateAndSubmit = () => {
     const finalSmokeStart = combineDateTime(
       form.smokeStartDate,
@@ -75,8 +101,20 @@ const MyInfo = () => {
       Alert.alert(errorMessage);
       return;
     }
-    Alert.alert("저장 완료", "정보가 정상적으로 저장되었습니다.");
-    navigation.goBack();
+    try {
+      setMyInfo({
+        smokeStartDateAndTime: finalSmokeStart,
+        quitDateAndTime: finalQuit,
+        smokePrice: form.smokePrice,
+        cigaretteCount: form.cigaretteCount,
+        averagePerDay: form.averagePerDay,
+      });
+      Alert.alert("저장 완료", "정보가 정상적으로 저장되었습니다.");
+      navigation.goBack();
+    } catch (error) {
+      console.error("Error saving my info:", error);
+      Alert.alert("저장 실패", "정보 저장 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -92,7 +130,7 @@ const MyInfo = () => {
           <View style={styles.dateInputContainer}>
             <TouchableOpacity
               style={styles.dateBox}
-              onPress={() => setActivePicker("smokeStartDate")}
+              onPress={() => handleOpenPicker("smokeStartDate")}
             >
               <Text style={styles.dateText}>
                 {form.smokeStartDate
@@ -102,7 +140,7 @@ const MyInfo = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.timeBox}
-              onPress={() => setActivePicker("smokeStartTime")}
+              onPress={() => handleOpenPicker("smokeStartTime")}
             >
               <Text style={styles.dateText}>
                 {form.smokeStartTime
@@ -122,7 +160,7 @@ const MyInfo = () => {
           <View style={styles.dateInputContainer}>
             <TouchableOpacity
               style={styles.dateBox}
-              onPress={() => setActivePicker("quitDate")}
+              onPress={() => handleOpenPicker("quitDate")}
             >
               <Text style={styles.dateText}>
                 {form.quitDate
@@ -132,7 +170,7 @@ const MyInfo = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.timeBox}
-              onPress={() => setActivePicker("quitTime")}
+              onPress={() => handleOpenPicker("quitTime")}
             >
               <Text style={styles.dateText}>
                 {form.quitTime
@@ -184,42 +222,13 @@ const MyInfo = () => {
           value={form.averagePerDay}
           setValue={(v) => handleFormChange("averagePerDay", v)}
         />
-        <DateTimePickerModal
-          isVisible={activePicker === "smokeStartDate"}
-          mode="date"
-          date={form.smokeStartDate || new Date()}
+        <DateTimePickerModalWrapper
+          activePicker={activePicker}
+          form={form}
           onConfirm={handleConfirm}
           onCancel={() => setActivePicker(null)}
-          cancelTextIOS="취소"
-          confirmTextIOS="확인"
         />
-        <DateTimePickerModal
-          isVisible={activePicker === "smokeStartTime"}
-          mode="time"
-          date={form.smokeStartTime || new Date()}
-          onConfirm={handleConfirm}
-          onCancel={() => setActivePicker(null)}
-          cancelTextIOS="취소"
-          confirmTextIOS="확인"
-        />
-        <DateTimePickerModal
-          isVisible={activePicker === "quitDate"}
-          mode="date"
-          date={form.quitDate || new Date()}
-          onConfirm={handleConfirm}
-          onCancel={() => setActivePicker(null)}
-          cancelTextIOS="취소"
-          confirmTextIOS="확인"
-        />
-        <DateTimePickerModal
-          isVisible={activePicker === "quitTime"}
-          mode="time"
-          date={form.quitTime || new Date()}
-          onConfirm={handleConfirm}
-          onCancel={() => setActivePicker(null)}
-          cancelTextIOS="취소"
-          confirmTextIOS="확인"
-        />
+        <Text>{JSON.stringify({ form, activePicker })}</Text>
         <TouchableOpacity
           style={styles.submitButton}
           onPress={validateAndSubmit}
