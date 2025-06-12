@@ -228,7 +228,6 @@ const MyInfo = () => {
           onConfirm={handleConfirm}
           onCancel={() => setActivePicker(null)}
         />
-        <Text>{JSON.stringify({ form, activePicker })}</Text>
         <TouchableOpacity
           style={styles.submitButton}
           onPress={validateAndSubmit}
