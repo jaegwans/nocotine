@@ -5,14 +5,12 @@ export const styles = StyleSheet.create({
   card: {
     width: "100%",
     paddingVertical: 18,
-
     backgroundColor: colors.white,
     borderRadius: 10,
   },
   headerText: {
     fontSize: 16,
     color: colors.text,
-
     marginLeft: 18,
   },
   contentText: {
