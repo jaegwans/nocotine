@@ -38,3 +38,8 @@ export function getStopSmokingProgressRatio(
 
   return stopSmokingDurationSeconds / smokingDurationSeconds;
 }
+
+export function getSmokePerSeconds(averagePerDay: number): number {
+  if (averagePerDay <= 0) return 0;
+  return averagePerDay / 86400; // 초당 흡연량
+}
