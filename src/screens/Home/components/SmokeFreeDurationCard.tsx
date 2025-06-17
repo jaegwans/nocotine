@@ -7,16 +7,16 @@ import {
 } from "@/utils/smokeDateUtils";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import { styles } from "./CigarettesAvoidedCard.styles";
-interface CigarettesAvoidedCardProps {
+import { styles } from "./SmokeFreeDurationCard.styles";
+interface SmokeFreeDurationCardProps {
   smokeStartDateAndTime: Date;
   smokeEndDateAndTime: Date;
 }
 
-const CigarettesAvoidedCard = ({
+const SmokeFreeDurationCard = ({
   smokeStartDateAndTime,
   smokeEndDateAndTime,
-}: CigarettesAvoidedCardProps) => {
+}: SmokeFreeDurationCardProps) => {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -61,4 +61,4 @@ const CigarettesAvoidedCard = ({
   );
 };
 
-export default CigarettesAvoidedCard;
+export default SmokeFreeDurationCard;

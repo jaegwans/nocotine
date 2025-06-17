@@ -4,8 +4,9 @@ import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./HomeScreen.styles";
-import CigarettesAvoidedCard from "./components/CigarettesAvoidedCard";
+import LifeGainedCard from "./components/LifeGainedCard";
 import MoneySavedCard from "./components/MoneySavedCard";
+import SmokeFreeDurationCard from "./components/SmokeFreeDurationCard";
 
 const HomeScreen = () => {
   const { smokeStartDateAndTime, quitDateAndTime } = useMyInfoStore(
@@ -15,7 +16,7 @@ const HomeScreen = () => {
     return (
       <SafeAreaView style={styles.container} edges={["top"]}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <CigarettesAvoidedCard
+          <SmokeFreeDurationCard
             smokeStartDateAndTime={smokeStartDateAndTime}
             smokeEndDateAndTime={quitDateAndTime}
           />
@@ -24,6 +25,7 @@ const HomeScreen = () => {
             smokeStartDateAndTime={smokeStartDateAndTime}
             smokeEndDateAndTime={quitDateAndTime}
           />
+          <LifeGainedCard />
         </ScrollView>
       </SafeAreaView>
     );
