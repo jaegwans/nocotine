@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.grayLighter,
   },
   scrollContainer: {
-    flex: 1,
     padding: 24,
     justifyContent: "flex-start",
     alignItems: "center",
