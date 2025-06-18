@@ -4,6 +4,8 @@ import { Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./HomeScreen.styles";
+import CigarettesAvoidedCard from "./components/CigarettesAvoidedCard";
+import HealthStatusCard from "./components/HealthStatusCard";
 import LifeGainedCard from "./components/LifeGainedCard";
 import MoneySavedCard from "./components/MoneySavedCard";
 import SmokeFreeDurationCard from "./components/SmokeFreeDurationCard";
@@ -16,16 +18,17 @@ const HomeScreen = () => {
     return (
       <SafeAreaView style={styles.container} edges={["top"]}>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <HealthStatusCard />
           <SmokeFreeDurationCard
             smokeStartDateAndTime={smokeStartDateAndTime}
             smokeEndDateAndTime={quitDateAndTime}
           />
-
           <MoneySavedCard
             smokeStartDateAndTime={smokeStartDateAndTime}
             smokeEndDateAndTime={quitDateAndTime}
           />
           <LifeGainedCard />
+          <CigarettesAvoidedCard />
         </ScrollView>
       </SafeAreaView>
     );
