@@ -14,3 +14,8 @@ export type RootStackParamList = {
   MainBottomTab: MainBottomTabParamList;
   MyInfo: undefined;
 };
+
+export type HomeStackParamList = {
+  Home: undefined;
+  HealthStatus: undefined;
+};

@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
   bar: {
     height: 20,
     borderRadius: 5,
-    backgroundColor: "#4caf50",
+    backgroundColor: colors.green,
   },
 });

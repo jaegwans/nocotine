@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginTop: 8,
   },
+  goalIconContainer: {
+    alignSelf: "flex-end",
+  },
 });

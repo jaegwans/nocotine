@@ -1,22 +1,44 @@
 import Progress from "@/components/Progress/Progress";
+import { HomeStackParamList } from "@/navigation/types";
+import { useNavigation } from "@react-navigation/native";
+
+import colors from "@/constants/colors";
+import { useHealthStatus } from "@/hooks/useHealthStatus";
+import { Ionicons } from "@expo/vector-icons";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableWithoutFeedback, View } from "react-native";
 import { styles } from "./HealthStatusCard.styles";
-// 건강상태 카드 컴포넌트
+
 const HealthStatusCard = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<HomeStackParamList, "HealthStatus">>();
+  const {
+    healthStatusReachRate,
+    healthStatusDescription,
+    healthStatusgoalTimeText,
+  } = useHealthStatus();
   return (
-    <View style={styles.card}>
-      <Text style={styles.headerText}>현재 건강 상태</Text>
-      <Text style={styles.contentText}>{"15%"}</Text>
-      <Text>소비한 금액</Text>
-      <View style={styles.progressContainer}>
-        <Progress value={0.3} />
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate("HealthStatus")}
+    >
+      <View style={styles.card}>
+        <Text style={styles.headerText}>현재 건강 상태</Text>
+        <Text style={styles.contentText}>
+          {(healthStatusReachRate * 100).toFixed(2)}%
+        </Text>
+        <Text>{healthStatusDescription}</Text>
+        <View style={styles.progressContainer}>
+          <View style={styles.goalIconContainer}>
+            <Ionicons name="flag-sharp" size={17} color={colors.greenDark} />
+          </View>
+          <Progress value={healthStatusReachRate} />
+        </View>
+        <View style={styles.sideInfomationContainer}>
+          <Text>{healthStatusgoalTimeText}</Text>
+        </View>
       </View>
-      <View style={styles.sideInfomationContainer}>
-        <Text>소비한 금액</Text>
-        <Text>₩</Text>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

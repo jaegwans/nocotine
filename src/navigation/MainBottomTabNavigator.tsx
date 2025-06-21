@@ -1,10 +1,10 @@
 import colors from "@/constants/colors";
 import ContentsScreen from "@/screens/Contents/ContentsScreen";
-import HomeScreen from "@/screens/Home/HomeScreen";
 import MapScreen from "@/screens/Map/MapScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import HomeNavigator from "./HomeNavigator";
 import SettingNavigator from "./SettingNavigator";
 
 function MainBottomTabNavigator() {
@@ -15,7 +15,7 @@ function MainBottomTabNavigator() {
         tabBarIcon: ({ color, size }) => {
           let iconName: React.ComponentProps<typeof Ionicons>["name"];
 
-          if (route.name === "Home") {
+          if (route.name === "HomeNavigator") {
             iconName = "home";
           } else if (route.name === "Map") {
             iconName = "map";
@@ -33,9 +33,9 @@ function MainBottomTabNavigator() {
       })}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
+        name="HomeNavigator"
+        component={HomeNavigator}
+        options={{ headerShown: false, tabBarLabel: "home" }}
       />
       <Tab.Screen
         name="Map"
