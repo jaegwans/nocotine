@@ -13,7 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "금연센터 검색을 위해 위치 정보가 필요합니다."
+      }
     },
     "android": {
       "adaptiveIcon": {
