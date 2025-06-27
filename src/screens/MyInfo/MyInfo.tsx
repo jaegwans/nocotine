@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import DateTimePickerModalWrapper from './components/DateTimePickerModalWrapper';
 import { styles } from './MyInfo.styles';
+import KeyboardAwareScrollViewWrapper from './KeyboardAwareScrollViewWrapper';
 
 type activePickerType =
     | 'smokeStartDate'
@@ -120,126 +121,151 @@ const MyInfo = () => {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={styles.container}>
-                <View>
-                    <Text style={styles.label}>
-                        흡연 시작일
-                        {errorFields.smokeStartDate && (
-                            <Text style={{ color: colors.red }}> *</Text>
-                        )}
-                    </Text>
-                    <View style={styles.dateInputContainer}>
-                        <TouchableOpacity
-                            style={styles.dateBox}
-                            onPress={() => handleOpenPicker('smokeStartDate')}
-                        >
-                            <Text style={styles.dateText}>
-                                {form.smokeStartDate
-                                    ? dayjs(form.smokeStartDate).format(
-                                          'YYYY-MM-DD'
-                                      )
-                                    : '날짜 선택'}
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.timeBox}
-                            onPress={() => handleOpenPicker('smokeStartTime')}
-                        >
-                            <Text style={styles.dateText}>
-                                {form.smokeStartTime
-                                    ? dayjs(form.smokeStartTime).format('HH:mm')
-                                    : '시간 선택'}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View>
-                    <Text style={styles.label}>
-                        금연 시작일
-                        {errorFields.quitDate && (
-                            <Text style={{ color: colors.red }}> *</Text>
-                        )}
-                    </Text>
-                    <View style={styles.dateInputContainer}>
-                        <TouchableOpacity
-                            style={styles.dateBox}
-                            onPress={() => handleOpenPicker('quitDate')}
-                        >
-                            <Text style={styles.dateText}>
-                                {form.quitDate
-                                    ? dayjs(form.quitDate).format('YYYY-MM-DD')
-                                    : '날짜 선택'}
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.timeBox}
-                            onPress={() => handleOpenPicker('quitTime')}
-                        >
-                            <Text style={styles.dateText}>
-                                {form.quitTime
-                                    ? dayjs(form.quitTime).format('HH:mm')
-                                    : '시간 선택'}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <Input
-                    label={
-                        <>
-                            담배 한 갑 가격 (₩)
-                            {errorFields.smokePrice && (
-                                <Text style={{ color: colors.red }}> *</Text>
-                            )}
-                        </>
-                    }
-                    keyboardType="numeric"
-                    placeholder="예: 4500"
-                    value={form.smokePrice}
-                    setValue={(v) => handleFormChange('smokePrice', v)}
-                />
-                <Input
-                    label={
-                        <>
-                            한 갑당 개비 수
-                            {errorFields.cigaretteCount && (
-                                <Text style={{ color: colors.red }}> *</Text>
-                            )}
-                        </>
-                    }
-                    keyboardType="numeric"
-                    placeholder="예: 20"
-                    value={form.cigaretteCount}
-                    setValue={(v) => handleFormChange('cigaretteCount', v)}
-                />
-                <Input
-                    label={
-                        <>
-                            하루 평균 흡연량
-                            {errorFields.averagePerDay && (
-                                <Text style={{ color: colors.red }}> *</Text>
-                            )}
-                        </>
-                    }
-                    keyboardType="numeric"
-                    placeholder="예: 10"
-                    value={form.averagePerDay}
-                    setValue={(v) => handleFormChange('averagePerDay', v)}
-                />
-                <DateTimePickerModalWrapper
-                    activePicker={activePicker}
-                    form={form}
-                    onConfirm={handleConfirm}
-                    onCancel={() => setActivePicker(null)}
-                />
-                <TouchableOpacity
-                    style={styles.submitButton}
-                    onPress={validateAndSubmit}
+        <View style={{ flex: 1 }}>
+            <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
+                accessible={false}
+            >
+                <KeyboardAwareScrollViewWrapper
+                    contentContainerStyle={[styles.container]}
+                    style={{ backgroundColor: colors.white }}
                 >
-                    <Text style={styles.submitButtonText}>저장</Text>
-                </TouchableOpacity>
-            </View>
-        </TouchableWithoutFeedback>
+                    <View>
+                        <Text style={styles.label}>
+                            흡연 시작일
+                            {errorFields.smokeStartDate && (
+                                <Text style={{ color: colors.red }}> *</Text>
+                            )}
+                        </Text>
+                        <View style={styles.dateInputContainer}>
+                            <TouchableOpacity
+                                style={styles.dateBox}
+                                onPress={() =>
+                                    handleOpenPicker('smokeStartDate')
+                                }
+                            >
+                                <Text style={styles.dateText}>
+                                    {form.smokeStartDate
+                                        ? dayjs(form.smokeStartDate).format(
+                                              'YYYY-MM-DD'
+                                          )
+                                        : '날짜 선택'}
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.timeBox}
+                                onPress={() =>
+                                    handleOpenPicker('smokeStartTime')
+                                }
+                            >
+                                <Text style={styles.dateText}>
+                                    {form.smokeStartTime
+                                        ? dayjs(form.smokeStartTime).format(
+                                              'HH:mm'
+                                          )
+                                        : '시간 선택'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={styles.label}>
+                            금연 시작일
+                            {errorFields.quitDate && (
+                                <Text style={{ color: colors.red }}> *</Text>
+                            )}
+                        </Text>
+                        <View style={styles.dateInputContainer}>
+                            <TouchableOpacity
+                                style={styles.dateBox}
+                                onPress={() => handleOpenPicker('quitDate')}
+                            >
+                                <Text style={styles.dateText}>
+                                    {form.quitDate
+                                        ? dayjs(form.quitDate).format(
+                                              'YYYY-MM-DD'
+                                          )
+                                        : '날짜 선택'}
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.timeBox}
+                                onPress={() => handleOpenPicker('quitTime')}
+                            >
+                                <Text style={styles.dateText}>
+                                    {form.quitTime
+                                        ? dayjs(form.quitTime).format('HH:mm')
+                                        : '시간 선택'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <Input
+                        label={
+                            <>
+                                담배 한 갑 가격 (₩)
+                                {errorFields.smokePrice && (
+                                    <Text style={{ color: colors.red }}>
+                                        {' '}
+                                        *
+                                    </Text>
+                                )}
+                            </>
+                        }
+                        keyboardType="numeric"
+                        placeholder="예: 4500"
+                        value={form.smokePrice}
+                        setValue={(v) => handleFormChange('smokePrice', v)}
+                    />
+                    <Input
+                        label={
+                            <>
+                                한 갑당 개비 수
+                                {errorFields.cigaretteCount && (
+                                    <Text style={{ color: colors.red }}>
+                                        {' '}
+                                        *
+                                    </Text>
+                                )}
+                            </>
+                        }
+                        keyboardType="numeric"
+                        placeholder="예: 20"
+                        value={form.cigaretteCount}
+                        setValue={(v) => handleFormChange('cigaretteCount', v)}
+                    />
+                    <Input
+                        label={
+                            <>
+                                하루 평균 흡연량
+                                {errorFields.averagePerDay && (
+                                    <Text style={{ color: colors.red }}>
+                                        {' '}
+                                        *
+                                    </Text>
+                                )}
+                            </>
+                        }
+                        keyboardType="numeric"
+                        placeholder="예: 10"
+                        value={form.averagePerDay}
+                        setValue={(v) => handleFormChange('averagePerDay', v)}
+                    />
+                    <DateTimePickerModalWrapper
+                        activePicker={activePicker}
+                        form={form}
+                        onConfirm={handleConfirm}
+                        onCancel={() => setActivePicker(null)}
+                    />
+                </KeyboardAwareScrollViewWrapper>
+            </TouchableWithoutFeedback>
+            <TouchableOpacity
+                style={styles.submitButton}
+                onPress={validateAndSubmit}
+            >
+                <Text style={styles.submitButtonText}>저장</Text>
+            </TouchableOpacity>
+        </View>
     );
 };
 
