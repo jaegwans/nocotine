@@ -12,6 +12,8 @@ import SmokeFreeDurationCard from './components/SmokeFreeDurationCard';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigation/types';
+import Animated from 'react-native-reanimated';
+import useAnimationFadeInUpSlideGradualStyle from '@/hooks/useAnimationFadeInUpSlideGradualStyle';
 
 const HomeScreen = () => {
     const { smokeStartDateAndTime, quitDateAndTime } = useMyInfoStore(
@@ -22,21 +24,27 @@ const HomeScreen = () => {
         useNavigation<StackNavigationProp<SettingStackParamList>>();
 
     if (smokeStartDateAndTime === null || quitDateAndTime === null) {
+        const fadeInText = useAnimationFadeInUpSlideGradualStyle(0);
+        const fadeInButton = useAnimationFadeInUpSlideGradualStyle(200);
         return (
             <SafeAreaView style={styles.errorContainer} edges={['top']}>
-                <Text style={styles.errorText}>
-                    금연 초기 입력 정보가 없습니다.{'\n'}
-                    입력 페이지에서 초기 정보를 입력해주세요.
-                </Text>
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('MyInfo');
-                    }}
-                >
-                    <Text style={{ color: 'blue', fontSize: 18 }}>
-                        초기 정보 입력하기
+                <Animated.View style={fadeInText.animatedStyle}>
+                    <Text style={styles.errorText}>
+                        금연 초기 입력 정보가 없습니다.{'\n'}
+                        입력 페이지에서 초기 정보를 입력해주세요.
                     </Text>
-                </TouchableOpacity>
+                </Animated.View>
+                <Animated.View style={fadeInButton.animatedStyle}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('MyInfo');
+                        }}
+                    >
+                        <Text style={{ color: 'blue', fontSize: 18 }}>
+                            초기 정보 입력하기
+                        </Text>
+                    </TouchableOpacity>
+                </Animated.View>
             </SafeAreaView>
         );
     }
