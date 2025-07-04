@@ -1,64 +1,66 @@
-import colors from "@/constants/colors";
-import ContentsScreen from "@/screens/Contents/ContentsScreen";
-import MapScreen from "@/screens/Map/MapScreen";
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
-import HomeNavigator from "./HomeNavigator";
-import SettingNavigator from "./SettingNavigator";
+import colors from '@/constants/colors';
+import ContentsScreen from '@/screens/Contents/ContentsScreen';
+import MapScreen from '@/screens/Map/MapScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import HomeNavigator from './HomeNavigator';
+import SettingNavigator from './SettingNavigator';
 
 function MainBottomTabNavigator() {
-  const Tab = createBottomTabNavigator();
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName: React.ComponentProps<typeof Ionicons>["name"];
+    const Tab = createBottomTabNavigator();
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    let iconName: React.ComponentProps<typeof Ionicons>['name'];
 
-          if (route.name === "HomeNavigator") {
-            iconName = "home";
-          } else if (route.name === "Map") {
-            iconName = "map";
-          } else if (route.name === "Contents") {
-            iconName = "play-circle";
-          } else if (route.name === "SettingNavigator") {
-            iconName = "settings";
-          } else {
-            iconName = "ellipse";
-          }
+                    if (route.name === 'HomeNavigator') {
+                        iconName = 'home';
+                    } else if (route.name === 'Map') {
+                        iconName = 'map';
+                    } else if (route.name === 'Contents') {
+                        iconName = 'play-circle';
+                    } else if (route.name === 'SettingNavigator') {
+                        iconName = 'settings';
+                    } else {
+                        iconName = 'ellipse';
+                    }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: colors.black,
-      })}
-    >
-      <Tab.Screen
-        name="HomeNavigator"
-        component={HomeNavigator}
-        options={{ headerShown: false, tabBarLabel: "home" }}
-      />
-      <Tab.Screen
-        name="Map"
-        component={MapScreen}
-        options={{ headerTitle: "금연센터 맵" }}
-      />
-      <Tab.Screen
-        name="Contents"
-        component={ContentsScreen}
-        options={{
-          headerTitle: "금연 정보",
-        }}
-      />
-      <Tab.Screen
-        name="SettingNavigator"
-        component={SettingNavigator}
-        options={{
-          headerShown: false,
-          tabBarLabel: "setting",
-        }}
-      />
-    </Tab.Navigator>
-  );
+                    return (
+                        <Ionicons name={iconName} size={size} color={color} />
+                    );
+                },
+                tabBarActiveTintColor: colors.black,
+            })}
+        >
+            <Tab.Screen
+                name="HomeNavigator"
+                component={HomeNavigator}
+                options={{ headerShown: false, tabBarLabel: 'home' }}
+            />
+            <Tab.Screen
+                name="Map"
+                component={MapScreen}
+                options={{ headerTitle: '금연센터 맵' }}
+            />
+            <Tab.Screen
+                name="Contents"
+                component={ContentsScreen}
+                options={{
+                    headerTitle: '금연 정보',
+                }}
+            />
+            <Tab.Screen
+                name="SettingNavigator"
+                component={SettingNavigator}
+                options={{
+                    headerShown: false,
+                    tabBarLabel: 'setting',
+                }}
+            />
+        </Tab.Navigator>
+    );
 }
 
 export default MainBottomTabNavigator;
