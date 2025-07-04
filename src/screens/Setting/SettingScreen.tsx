@@ -3,7 +3,7 @@ import { useMyInfoStore } from "@/store/useMyInfoStore";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Alert, ScrollView } from "react-native";
+import { Alert, Linking, ScrollView } from "react-native";
 import { styles } from "./SettingScreen.styles";
 import ListItem from "./components/ListItem";
 
@@ -44,13 +44,17 @@ const SettingScreen = () => {
       <ListItem
         label="서비스 이용약관"
         onPress={() => {
-          console.log("Language selected");
+          Linking.openURL(
+            "https://jaegwans.notion.site/nocotine-226a05ba824e80b8a9b1de431ed80e42?source=copy_link"
+          );
         }}
       />
       <ListItem
         label="개인정보 처리방침"
         onPress={() => {
-          console.log("Language selected");
+          Linking.openURL(
+            "https://jaegwans.notion.site/nocotine-226a05ba824e8019b014cf3ece4c7170?source=copy_link"
+          );
         }}
       />
     </ScrollView>
