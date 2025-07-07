@@ -23,9 +23,10 @@ const HomeScreen = () => {
     const navigation =
         useNavigation<StackNavigationProp<SettingStackParamList>>();
 
+    const fadeInText = useAnimationFadeInUpSlideGradualStyle(0);
+    const fadeInButton = useAnimationFadeInUpSlideGradualStyle(200);
+
     if (smokeStartDateAndTime === null || quitDateAndTime === null) {
-        const fadeInText = useAnimationFadeInUpSlideGradualStyle(0);
-        const fadeInButton = useAnimationFadeInUpSlideGradualStyle(200);
         return (
             <SafeAreaView style={styles.errorContainer} edges={['top']}>
                 <Animated.View style={fadeInText.animatedStyle}>
