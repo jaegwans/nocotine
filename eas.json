@@ -1,0 +1,10 @@
+{
+    "build": {
+        "production": {
+            "env": {
+                "GOOGLE_API_KEY": "GOOGLE_API_KEY",
+                "KAKAO_MAPS_API_KEY": "KAKAO_MAPS_API_KEY"
+            }
+        }
+    }
+}
