@@ -7,4 +7,11 @@ export default ({ config }) => ({
             projectId: '92876fc2-e8c2-4359-9cf7-0403be5eae3a',
         },
     },
+    ios: {
+        ...config.ios,
+        config: {
+            ...(config.ios?.config || {}),
+            googleMapsApiKey: process.env.GOOGLE_API_KEY,
+        },
+    },
 });
