@@ -11,8 +11,8 @@ const useAnimationFadeInUpSlideGradualStyle = (delay: number = 0) => {
     const opacity = useSharedValue(0);
     const bottom = useSharedValue(100);
     React.useEffect(() => {
-        opacity.value = withDelay(delay, withTiming(1, { duration: 700 }));
-        bottom.value = withDelay(delay, withTiming(0, { duration: 700 }));
+        opacity.value = withDelay(delay, withTiming(1, { duration: 400 }));
+        bottom.value = withDelay(delay, withTiming(0, { duration: 400 }));
         return () => {
             opacity.value = 0;
             bottom.value = 100;
