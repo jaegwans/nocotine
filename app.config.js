@@ -9,9 +9,6 @@ export default ({ config }) => ({
     },
     ios: {
         ...config.ios,
-        config: {
-            ...(config.ios?.config || {}),
-            googleMapsApiKey: process.env.GOOGLE_API_KEY,
-        },
+        googleMapsApiKey: process.env.GOOGLE_API_KEY,
     },
 });
