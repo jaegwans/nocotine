@@ -56,6 +56,7 @@ const DateTimePickerModalWrapper = ({
                 cancelTextIOS="취소"
                 confirmTextIOS="확인"
                 textColor={colors.black}
+                locale="ko"
             />
             <DateTimePickerModal
                 isVisible={
