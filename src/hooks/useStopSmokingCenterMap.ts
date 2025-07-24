@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Place, searchNearbyPlaces } from '../apis/searchNearbyPlaces';
+import {
+    unifyAdjacentMarkers,
+    logMarkerUnification,
+} from '../utils/unifyAdjacentMarkers';
 
 function getDeltaFromRadius(radius: number) {
     const delta = radius / 1000 / 111;
@@ -79,17 +83,18 @@ export const useStopSmokingCenterMap = () => {
             )
         )
             .then((results) => {
-                const uniquePlacesMap = new Map();
-                results.flat().forEach((place) => {
-                    const key =
-                        place.place_id ||
-                        `${place.name}-${place.latitude}-${place.longitude}`;
-                    uniquePlacesMap.set(key, place);
-                });
-                const uniquePlaces = Array.from(uniquePlacesMap.values());
-                setPlaces(uniquePlaces);
+                const allPlaces = results.flat();
+
+                // 인접한 마커들 통합
+                const filteredPlaces = unifyAdjacentMarkers(allPlaces, 100);
+
+                // 디버깅 로그
+                logMarkerUnification(allPlaces, filteredPlaces);
+
+                setPlaces(filteredPlaces);
             })
             .catch((e) => {
+                console.error('API 에러:', e);
                 setError('주변 장소를 불러오지 못했습니다.');
             })
             .finally(() => setLoading(false));
