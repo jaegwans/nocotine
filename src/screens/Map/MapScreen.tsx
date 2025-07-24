@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     ActivityIndicator,
     View,
@@ -22,6 +22,14 @@ const MapScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
     const [center, setCenter] = useState<Region | null>(null);
+    const [refreshing, setRefreshing] = useState(false);
+    const [initialLoading, setInitialLoading] = useState(true);
+
+    useEffect(() => {
+        if (region) {
+            setInitialLoading(false);
+        }
+    }, [region]);
 
     const handleMarkerPress = (place: Place) => {
         setSelectedPlace(place);
@@ -34,7 +42,7 @@ const MapScreen = () => {
     };
     const setCenterAtMapViewRegion = (newRegion: Region) => {
         setCenter({
-            latitude: newRegion.latitude,
+            latitude: newRegion.latitude, //
             longitude: newRegion.longitude,
             latitudeDelta: newRegion.latitudeDelta,
             longitudeDelta: newRegion.longitudeDelta,
@@ -42,15 +50,18 @@ const MapScreen = () => {
     };
     const setRegionAtCenter = () => {
         if (center) {
+            setRefreshing(true);
             setRegion({
                 latitude: center.latitude,
                 longitude: center.longitude,
                 latitudeDelta: center.latitudeDelta,
                 longitudeDelta: center.longitudeDelta,
             });
+
+            setTimeout(() => setRefreshing(false), 800);
         }
     };
-    if (!region || loading) {
+    if (!region || initialLoading) {
         return (
             <View style={styles.centered}>
                 <ActivityIndicator size="large" />
@@ -64,6 +75,7 @@ const MapScreen = () => {
                 region={region}
                 showsUserLocation
                 // key={`${region.latitude},${region.longitude}-${places.length}`}
+                // key={`map-${region.latitude}-${region.longitude}`}
                 onRegionChangeComplete={setCenterAtMapViewRegion}
             >
                 {places.map((place) => (
@@ -107,14 +119,14 @@ const MapScreen = () => {
                     </View>
                 </Marker>
             </MapView>
-            {loading && (
+            {(loading && !initialLoading) || refreshing ? (
                 <View style={[styles.centered, styles.overlay]}>
                     <ActivityIndicator size="large" />
                 </View>
-            )}
+            ) : null}
             {error && (
                 <View style={[styles.centered, styles.errorOverlay]}>
-                    <ActivityIndicator size="small" color="red" />
+                    <Text style={{ color: 'red' }}>{error}</Text>
                 </View>
             )}
             <MarkerInfoModal
@@ -122,13 +134,26 @@ const MapScreen = () => {
                 closeModal={closeModal}
                 selectedPlace={selectedPlace}
             />
-            {!loading && !error && (
+            {!initialLoading && (
                 <TouchableOpacity
-                    style={styles.refreshButton}
+                    style={[
+                        styles.refreshButton,
+                        (refreshing || loading) && { opacity: 0.6 },
+                    ]}
                     onPress={setRegionAtCenter}
+                    disabled={refreshing || loading}
                 >
-                    <Ionicons name="search-outline" size={20} />
-                    <Text>새로고침</Text>
+                    <Ionicons
+                        name={
+                            refreshing || loading
+                                ? 'hourglass-outline'
+                                : 'search-outline'
+                        }
+                        size={20}
+                    />
+                    <Text>
+                        {refreshing || loading ? '검색중...' : '새로고침'}
+                    </Text>
                 </TouchableOpacity>
             )}
         </View>
