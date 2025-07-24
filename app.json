@@ -10,12 +10,13 @@
         "splash": {
             "image": "./assets/icon_app.png",
             "resizeMode": "contain",
-            "backgroundColor": "#1C771C"
+            "backgroundColor": "#FFFFFF"
         },
         "ios": {
             "supportsTablet": true,
             "infoPlist": {
-                "NSLocationWhenInUseUsageDescription": "금연센터 검색을 위해 위치 정보가 필요합니다."
+                "NSLocationWhenInUseUsageDescription": "금연센터 검색을 위해 위치 정보가 필요합니다.",
+                "ITSAppUsesNonExemptEncryption": false
             },
             "bundleIdentifier": "com.jaegwan.nocotine"
         },
