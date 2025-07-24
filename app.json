@@ -2,7 +2,7 @@
     "expo": {
         "name": "nocotine",
         "slug": "nocotine",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "orientation": "portrait",
         "icon": "./assets/icon_app.png",
         "userInterfaceStyle": "light",
@@ -18,7 +18,8 @@
                 "NSLocationWhenInUseUsageDescription": "금연센터 검색을 위해 위치 정보가 필요합니다.",
                 "ITSAppUsesNonExemptEncryption": false
             },
-            "bundleIdentifier": "com.jaegwan.nocotine"
+            "bundleIdentifier": "com.jaegwan.nocotine",
+            "buildNumber": "2"
         },
         "android": {
             "adaptiveIcon": {
