@@ -26,11 +26,6 @@ const HomeScreen = () => {
 
     const fadeInText = useAnimationFadeInUpSlideGradualStyle(0);
     const fadeInButton = useAnimationFadeInUpSlideGradualStyle(200);
-    // return (
-    //     <SafeAreaView>
-    //         <Text>{JSON.stringify(sate)}</Text>
-    //     </SafeAreaView>
-    // );
 
     if (smokeStartDateAndTime === null || quitDateAndTime === null) {
         return (
@@ -39,7 +34,6 @@ const HomeScreen = () => {
                     <Text style={styles.errorText}>
                         금연 초기 입력 정보가 없습니다.{'\n'}
                         입력 페이지에서 초기 정보를 입력해주세요.
-                        {JSON.stringify(sate)}
                     </Text>
                 </Animated.View>
                 <Animated.View style={fadeInButton.animatedStyle}>
