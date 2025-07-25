@@ -37,20 +37,23 @@ const MyInfo = () => {
         averagePerDay: '',
     });
     const myInfoStore = useMyInfoStore((state) => state);
+    const { getSmokeStartDate, getQuitDate } = useMyInfoStore((state) => state);
+    const smokeStartDateAndTime = getSmokeStartDate();
+    const quitDateAndTime = getQuitDate();
     const setMyInfo = useMyInfoStore((state) => state.setMyInfo);
     useLayoutEffect(() => {
         if (
-            myInfoStore.smokeStartDateAndTime ||
-            myInfoStore.quitDateAndTime ||
+            smokeStartDateAndTime ||
+            quitDateAndTime ||
             myInfoStore.smokePrice ||
             myInfoStore.cigaretteCount ||
             myInfoStore.averagePerDay
         ) {
             setForm({
-                smokeStartDate: myInfoStore.smokeStartDateAndTime,
-                smokeStartTime: myInfoStore.smokeStartDateAndTime,
-                quitDate: myInfoStore.quitDateAndTime,
-                quitTime: myInfoStore.quitDateAndTime,
+                smokeStartDate: smokeStartDateAndTime,
+                smokeStartTime: smokeStartDateAndTime,
+                quitDate: quitDateAndTime,
+                quitTime: quitDateAndTime,
                 smokePrice: myInfoStore.smokePrice,
                 cigaretteCount: myInfoStore.cigaretteCount,
                 averagePerDay: myInfoStore.averagePerDay,
