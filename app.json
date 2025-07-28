@@ -2,7 +2,7 @@
     "expo": {
         "name": "nocotine",
         "slug": "nocotine",
-        "version": "1.0.2",
+        "version": "1.0.4",
         "orientation": "portrait",
         "icon": "./assets/icon_app.png",
         "userInterfaceStyle": "light",
@@ -19,14 +19,15 @@
                 "ITSAppUsesNonExemptEncryption": false
             },
             "bundleIdentifier": "com.jaegwan.nocotine",
-            "buildNumber": "3"
+            "buildNumber": "5"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             },
-            "edgeToEdgeEnabled": true
+            "edgeToEdgeEnabled": true,
+            "package": "com.jaegwan.nocotine"
         },
         "web": {
             "favicon": "./assets/favicon.png"
