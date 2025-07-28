@@ -8,12 +8,12 @@ import {
     logMarkerUnification,
 } from '../utils/unifyAdjacentMarkers';
 
-function getDeltaFromRadius(radius: number) {
+export function getDeltaFromRadius(radius: number) {
     const delta = radius / 1000 / 111;
     return delta;
 }
 
-function getRadiusfromDelta(delta: number) {
+export function getRadiusfromDelta(delta: number) {
     return delta * 1000 * 111;
 }
 
