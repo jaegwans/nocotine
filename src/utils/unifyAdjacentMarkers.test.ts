@@ -39,4 +39,41 @@ describe('unifyAdjacentMarkers', () => {
     const result = unifyAdjacentMarkers(places, 10); // 10m
     expect(result.length).toBe(2);
   });
+
+  it('빈 배열 입력 시 빈 배열 반환', () => {
+    expect(unifyAdjacentMarkers([], 100)).toEqual([]);
+  });
+
+  it('logMarkerUnification: 정상적으로 로그 출력', () => {
+    const original = [
+      { name: 'A', latitude: 0, longitude: 0 },
+      { name: 'B', latitude: 0.0001, longitude: 0.0001 },
+    ];
+    const filtered = unifyAdjacentMarkers(original, 1000);
+    const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const { logMarkerUnification } = require('./unifyAdjacentMarkers');
+    logMarkerUnification(original, filtered);
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it('우선순위가 낮은 마커가 높은 마커로 교체됨 (59번째 줄 분기)', () => {
+    const places = [
+      { name: '편의점', latitude: 37.5665, longitude: 126.9780 }, // 우선순위 3 (낮음)
+      { name: '금연상담실', latitude: 37.56651, longitude: 126.97801 }, // 우선순위 1 (높음), 가까운 거리
+    ];
+    const result = unifyAdjacentMarkers(places, 50); // 50m 이내 통합
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('금연상담실'); // 우선순위 높은 것이 남음
+  });
+
+  it('우선순위가 높은 마커가 낮은 마커로 교체되지 않음', () => {
+    const places = [
+      { name: '금연상담실', latitude: 37.5665, longitude: 126.9780 }, // 우선순위 1 (높음)
+      { name: '편의점', latitude: 37.56651, longitude: 126.97801 }, // 우선순위 3 (낮음), 가까운 거리
+    ];
+    const result = unifyAdjacentMarkers(places, 50); // 50m 이내 통합
+    expect(result.length).toBe(1);
+    expect(result[0].name).toBe('금연상담실'); // 우선순위 높은 것이 유지됨
+  });
 });
