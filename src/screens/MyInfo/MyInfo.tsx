@@ -29,7 +29,9 @@ const MyInfo = () => {
     const navigation = useNavigation();
     const [form, setForm] = useState({
         smokeStartDate: null as Date | null,
-        smokeStartTime: null as Date | null,
+        smokeStartTime: new Date(
+            new Date().setHours(0, 0, 0, 0)
+        ) as Date | null,
         quitDate: null as Date | null,
         quitTime: null as Date | null,
         smokePrice: '',
