@@ -2,7 +2,7 @@
     "expo": {
         "name": "nocotine",
         "slug": "nocotine",
-        "version": "1.0.4",
+        "version": "1.0.5",
         "orientation": "portrait",
         "icon": "./assets/icon_app.png",
         "userInterfaceStyle": "light",
@@ -13,13 +13,15 @@
             "backgroundColor": "#FFFFFF"
         },
         "ios": {
-            "supportsTablet": true,
             "infoPlist": {
                 "NSLocationWhenInUseUsageDescription": "금연센터 검색을 위해 위치 정보가 필요합니다.",
                 "ITSAppUsesNonExemptEncryption": false
             },
             "bundleIdentifier": "com.jaegwan.nocotine",
-            "buildNumber": "5"
+            "buildNumber": "5",
+            "teamId": "H4DJJ5V239",
+            "developmentTeam": "H4DJJ5V239",
+            "codeSigningCertificateKeychain": "login"
         },
         "android": {
             "adaptiveIcon": {

@@ -1,0 +1,59 @@
+
+
+
+default_platform(:ios)
+
+platform :ios do
+  desc "간단한 TestFlight 업로드"
+  lane :beta do
+    # 코드사이닝 설정
+    automatic_code_signing(
+      use_automatic_signing: true,
+      team_id: "H4DJJ5V239",
+      path: "nocotine.xcodeproj"
+    )
+    
+    increment_build_number(
+      # xcodeproj: "nocotine.xcodeproj"
+      build_number: "6"  # 원하는 번호로 설정
+    )
+
+    build_app(
+      workspace: "nocotine.xcworkspace",  # workspace 다시 사용
+      scheme: "nocotine",
+      export_method: "app-store",
+      configuration: "Release",
+      clean: true,
+      include_bitcode: false
+    )
+
+   upload_to_testflight(
+      api_key_path: "./fastlane/NW2457J6B7.json",
+      skip_waiting_for_build_processing: true
+    )3
+  end
+  
+  desc "수동 Archive 테스트"
+  lane :archive_only do
+    # 코드사이닝 설정
+    automatic_code_signing(
+      use_automatic_signing: true,
+      team_id: "H4DJJ5V239",
+      path: "nocotine.xcodeproj"
+    )
+    
+    increment_build_number(
+      xcodeproj: "nocotine.xcodeproj"
+    )
+    
+    gym(
+      workspace: "nocotine.xcworkspace",  # workspace 다시 사용
+      scheme: "nocotine",
+      configuration: "Release",
+      clean: true,
+      skip_archive: false,
+      skip_package_ipa: true,  # IPA 생성 안 함, Archive만
+      include_bitcode: false
+    )
+  end
+end
