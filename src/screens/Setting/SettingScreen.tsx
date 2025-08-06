@@ -45,7 +45,7 @@ const SettingScreen = () => {
                 }}
             />
             <ListItem
-                label="금연 재시작"
+                label="앱 초기화"
                 onPress={() => {
                     Alert.alert(
                         '기록 및 앱 데이터 초기화',
