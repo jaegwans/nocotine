@@ -9,7 +9,7 @@ module.exports = {
         '^@/(.*)$': '<rootDir>/src/$1',
     },
     transformIgnorePatterns: [
-        'node_modules/(?!(react-native|@react-native|expo-.*)/)'
+        'node_modules/(?!(react-native|@react-native|expo-.*)/)',
     ],
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };

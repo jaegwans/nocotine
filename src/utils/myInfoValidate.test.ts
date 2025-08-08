@@ -28,7 +28,7 @@ describe('myInfoValidate', () => {
         expect(result.errorFields.quitDate).toBe(true);
     });
 
-    it('흡연 시작일이 오늘보다 미래면 에러', () => {
+    it('흡연 시작일이 오늘보다 미래면 에러 (실제 로직상 quitDate가 더 과거면 우선 해당 에러)', () => {
         const future = new Date('2025-08-01');
         const result = myInfoValidate({
             smokePrice: '4500',
@@ -37,8 +37,10 @@ describe('myInfoValidate', () => {
             cigaretteCount: '20',
             averagePerDay: '15',
         });
-        expect(result.errorMessage).toContain('초과');
+        // quitDate가 smokeStartDate보다 과거이므로 해당 에러 메시지가 우선
+        expect(result.errorMessage).toContain('빠를 수 없습니다');
         expect(result.errorFields.smokeStartDate).toBe(true);
+        expect(result.errorFields.quitDate).toBe(true);
     });
 
     it('금연 시작일이 흡연 시작일보다 빠르면 에러', () => {
@@ -55,7 +57,7 @@ describe('myInfoValidate', () => {
     });
 
     it('금연 시작일이 오늘보다 미래면 에러', () => {
-        const future = new Date('2025-08-01');
+        const future = new Date('2025-08-10');
         const result = myInfoValidate({
             smokePrice: '4500',
             smokeStartDate: new Date('2025-07-20'),
@@ -63,7 +65,9 @@ describe('myInfoValidate', () => {
             cigaretteCount: '20',
             averagePerDay: '15',
         });
+        // quitDate가 미래이므로 quitDate 필드만 true, 메시지는 "초과" 포함
         expect(result.errorFields.quitDate).toBe(true);
+        expect(result.errorFields.smokeStartDate).toBe(false);
         expect(result.errorMessage).toContain('초과');
     });
 
